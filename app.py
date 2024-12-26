@@ -4,6 +4,7 @@ CRUD Application
 '''
 # Import necessary libraries from Flask
 from flask import Flask, redirect, request, render_template, url_for
+#import pdb; pdb.set_trace()
 
 # Instantiate Flask application
 app = Flask(__name__)
@@ -29,17 +30,18 @@ def search_transactions():
     if request.method == 'POST':
         min_val = float(request.form['min_amount'])
         max_val = float(request.form['max_amount'])
-        
+        #return f"Extracted float value: {min_val} {max_val}"
         # Find the transaction with the matching ID and update its values
         for transaction in transactions:
-            if max_val <= transaction['amount'] <= min_val:
+            if min_val <= transaction['amount'] <= max_val:
                 filtered_transactions.append(transaction)
-        
+       # return f"Extracted float value: {filtered_transactions}"
         if not filtered_transactions:
       	  # Redirect to the transactions list page after updating the transaction
             return render_template("transactions.html", transactions=transactions)
         else:
             return render_template("transactions.html", transactions=filtered_transactions)
+    
     return render_template("search.html")
 
 # Create operation: Route to display and process add transaction form
