@@ -43,6 +43,18 @@ def search_transactions():
             return render_template("transactions.html", transactions=filtered_transactions)
     
     return render_template("search.html")
+@app.route("/balance")
+def total_balance():
+    # Render the transactions list template and pass the transactions data
+    # Sum up all values
+ 
+    total_amt = 0
+    for transaction in transactions:
+    	total_amt += transaction['amount']
+   
+    title  ="Total Balance: "
+    total_balance = float(total_amt)     
+    return render_template("transactions.html", transactions=transactions,total_balance=total_balance,title=title)
 
 # Create operation: Route to display and process add transaction form
 @app.route("/add", methods=["GET", "POST"])
